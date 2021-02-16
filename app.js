@@ -1,9 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const sequelize = require("./utilities/database")
+const cors = require("cors");
+
+const sequelize = require("./utilities/database");
 const fixedCosts = require("./routes/fixedCosts");
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /*enable when create new tables*/
