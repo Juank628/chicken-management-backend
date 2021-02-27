@@ -1,7 +1,7 @@
 const { DataTypes, literal } = require("sequelize");
 const sequelize = require("../utilities/database");
 
-const FixedCost = sequelize.define("FixedCost", {
+const VariableCost = sequelize.define("VariableCost", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -24,16 +24,6 @@ const FixedCost = sequelize.define("FixedCost", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  createdAt: {
-    type: DataTypes.DATE(3),
-    defaultValue: literal("CURRENT_TIMESTAMP(3)"),
-  },
-  updatedAt: {
-    type: DataTypes.DATE(3),
-    defaultValue: literal(
-      "CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)"
-    ),
-  },
 });
 
-module.exports = FixedCost;
+module.exports = VariableCost;

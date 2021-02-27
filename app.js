@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const fixedCosts = require("./routes/fixedCosts");
+const fixedCosts = require("./routes/variableCosts");
 const dbAdmin = require("./routes/dbAdmin");
 
 const {
@@ -18,10 +18,11 @@ app.use(
   })
 );
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /*routes*/
-app.use("/fixed-costs", fixedCosts);
+app.use("/variable-costs", fixedCosts);
 app.use("/db-admin", dbAdmin);
 
 /******/
