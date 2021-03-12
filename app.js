@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const fixedCosts = require("./routes/variableCosts");
+const recipes = require("./routes/recipes")
 const dbAdmin = require("./routes/dbAdmin");
 
 const {
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 /*routes*/
 app.use("/variable-costs", fixedCosts);
+app.use("/recipes", recipes)
 app.use("/db-admin", dbAdmin);
 
 /******/

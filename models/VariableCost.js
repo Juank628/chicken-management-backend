@@ -1,4 +1,4 @@
-const { DataTypes, literal } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require("../utilities/database");
 
 const VariableCost = sequelize.define("VariableCost", {
