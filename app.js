@@ -2,9 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const Recipe = require("./models/Recipe")
+const VariableCost = require("./models/VariableCost")
+const RecipeCost = require("./models/RecipeCost")
+
 const fixedCosts = require("./routes/variableCosts");
 const recipes = require("./routes/recipes")
 const dbAdmin = require("./routes/dbAdmin");
+
+Recipe.belongsToMany(VariableCost, {through: RecipeCost});
+VariableCost.belongsToMany(Recipe, {through: RecipeCost});
 
 const {
   cors: { corsOrigin },

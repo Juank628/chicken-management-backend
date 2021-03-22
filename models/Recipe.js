@@ -12,17 +12,6 @@ const Recipe = sequelize.define("Recipe", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  ingredients: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    get() {
-      return this.getDataValue("ingredients").split(",");
-    },
-    set(val) {
-      //this.setDataValue("ingredients", val.join(";"));
-      this.setDataValue("ingredients", val);
-    },
-  },
   instructions: {
     type: DataTypes.TEXT,
     allowNull: true,
@@ -31,6 +20,10 @@ const Recipe = sequelize.define("Recipe", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  }
 });
 
 module.exports = Recipe;
