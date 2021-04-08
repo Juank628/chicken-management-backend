@@ -86,6 +86,7 @@ router.put("/update", async (req, res, next) => {
 router.delete("/delete", async (req, res, next) => {
   const { id } = req.body;
   try {
+    await RecipeCost.destroy({ where: { RecipeId: id } });
     const result = await Recipe.destroy({
       where: { id },
       force: true,
