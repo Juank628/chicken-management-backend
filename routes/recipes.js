@@ -1,6 +1,7 @@
 const express = require("express");
 const Recipe = require("../models/Recipe");
 const VariableCost = require("../models/VariableCost");
+const RecipeCost = require("../models/RecipeCost");
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post("/create", async (req, res, next) => {
     } = req.body;
 
     const newItem = await Recipe.create(recipeData);
-    
+
     costsData.forEach((item, index) => {
       promises.push(
         newItem.addVariableCost(item.id, {
@@ -44,14 +45,37 @@ router.get("/read", async (req, res, next) => {
   }
 });
 
-router.post("/update", async (req, res, next) => {
-  const { id, description, ingredients, instructions, family } = req.body;
+router.put("/update", async (req, res, next) => {
+  const promises = [];
+  const {
+    recipeData,
+    recipeCosts: { costsData, costsUnitSymbol, costsQuantity },
+  } = req.body;
+
+  const { id } = recipeData;
+  delete recipeData.id;
+
   try {
-    const [numberOfAffectedRows, affectedRows] = await Recipe.update(
-      { description, ingredients, instructions, family },
-      { where: { id } }
-    );
-    const data = await Recipe.findByPk(id);
+    await Recipe.update({ ...recipeData }, { where: { id } });
+    await RecipeCost.destroy({ where: { RecipeId: id } });
+
+    const updatedItem = await Recipe.findByPk(id);
+
+    costsData.forEach((item, index) => {
+      promises.push(
+        updatedItem.addVariableCost(item.id, {
+          through: {
+            CostQuantity: costsQuantity[index],
+            CostUnit: costsUnitSymbol[index],
+          },
+        })
+      );
+    });
+
+    await Promise.all(promises);
+
+    const data = await Recipe.findByPk(id, { include: VariableCost });
+
     res.json(data);
   } catch (err) {
     res.status(500);

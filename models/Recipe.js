@@ -16,6 +16,14 @@ const Recipe = sequelize.define("Recipe", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
+  brief: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   family: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,7 +31,15 @@ const Recipe = sequelize.define("Recipe", {
   price: {
     type: DataTypes.FLOAT,
     allowNull: false,
-  }
+  },
+  eShop: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  sale: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Recipe;
