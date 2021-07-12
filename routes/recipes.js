@@ -28,7 +28,11 @@ router.post("/create", async (req, res, next) => {
 
     await Promise.all(promises);
 
-    res.json(newItem);
+    const createdItem = await Recipe.findByPk(newItem.id, {
+      include: VariableCost,
+    });
+
+    res.json(createdItem);
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -39,6 +43,24 @@ router.get("/read", async (req, res, next) => {
   try {
     const data = await Recipe.findAll({ include: VariableCost });
     res.json(data);
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
+});
+
+/*find recipes which use a cost id*/
+router.get("/find-variablecost", async (req, res, next) => {
+  try {
+    const { costId } = req.body;
+    const foundRecipesIds = []
+    const foundRecipes = await RecipeCost.findAll({
+      where: { VariableCostId: costId },
+    });
+    foundRecipes.forEach(recipe => {
+      foundRecipesIds.push(recipe.RecipeId)
+    })
+    res.json(foundRecipesIds);
   } catch (err) {
     res.status(500);
     res.json(err);
