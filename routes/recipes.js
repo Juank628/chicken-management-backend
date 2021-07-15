@@ -49,24 +49,6 @@ router.get("/read", async (req, res, next) => {
   }
 });
 
-/*find recipes which use a cost id*/
-router.get("/find-variablecost", async (req, res, next) => {
-  try {
-    const { costId } = req.body;
-    const foundRecipesIds = []
-    const foundRecipes = await RecipeCost.findAll({
-      where: { VariableCostId: costId },
-    });
-    foundRecipes.forEach(recipe => {
-      foundRecipesIds.push(recipe.RecipeId)
-    })
-    res.json(foundRecipesIds);
-  } catch (err) {
-    res.status(500);
-    res.json(err);
-  }
-});
-
 router.put("/update", async (req, res, next) => {
   const promises = [];
   const {
