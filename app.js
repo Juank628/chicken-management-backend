@@ -8,6 +8,7 @@ const RecipeCost = require("./models/RecipeCost")
 
 const fixedCosts = require("./routes/variableCosts");
 const recipes = require("./routes/recipes")
+const orders = require("./routes/orders")
 const dbAdmin = require("./routes/dbAdmin");
 
 Recipe.belongsToMany(VariableCost, {through: RecipeCost});
@@ -31,7 +32,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 /*routes*/
 app.use("/variable-costs", fixedCosts);
-app.use("/recipes", recipes)
+app.use("/recipes", recipes);
+app.use("/orders", orders);
 app.use("/db-admin", dbAdmin);
 
 /******/
