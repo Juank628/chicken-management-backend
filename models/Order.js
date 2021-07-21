@@ -9,11 +9,11 @@ const Order = sequelize.define("Order", {
     primaryKey: true,
   },
   table: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TINYINT,
     allowNull: true,
   },
   status: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TINYINT,
     allowNull: false,
   },
   recipesDesc: {
@@ -29,8 +29,20 @@ const Order = sequelize.define("Order", {
     allowNull: false,
   },
   recipesCosts: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.TEXT,
     allowNull: false,
+  },
+  address: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  phone: {
+    type: DataTypes.STRING(16),
+    allowNull: true,
+  },
+  name: {
+    type: DataTypes.STRING(64),
+    allowNull: true,
   },
 });
 

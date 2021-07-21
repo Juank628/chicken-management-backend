@@ -15,4 +15,15 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.get("/read", async (req, res, next) => {
+  try {
+    const data = await Order.findAll();
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  }
+});
+
 module.exports = router;
