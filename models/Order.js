@@ -12,11 +12,15 @@ const Order = sequelize.define("Order", {
     type: DataTypes.TINYINT,
     allowNull: true,
   },
-  status: {
+  percent: {
     type: DataTypes.TINYINT,
     allowNull: false,
   },
-  recipesDesc: {
+  recipesIDs: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  recipesDescs: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
@@ -31,6 +35,26 @@ const Order = sequelize.define("Order", {
   recipesCosts: {
     type: DataTypes.TEXT,
     allowNull: false,
+  },
+  discount: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  totalPrice: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  totalCost: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  totalProfit: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  comments: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   address: {
     type: DataTypes.TEXT,
