@@ -1,11 +1,12 @@
 const Sequalize = require("sequelize");
 const {
-  database: { dbName, dbHost, dbDialect, userName, userPass },
+  database: { dbName, dbHost, dbPort, dbDialect, userName, userPass },
 } = require("./secrets.json");
 
 const sequelize = new Sequalize(dbName, userName, userPass, {
   host: dbHost,
   dialect: dbDialect,
+  port: dbPort
 });
 
 module.exports = sequelize;
